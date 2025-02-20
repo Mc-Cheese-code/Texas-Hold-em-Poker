@@ -8,6 +8,10 @@ class CardTest(unittest.TestCase):
         card = Card(rank = "Queen", suit = "Hearts")
         self.assertEqual(card.rank, "Queen")
 
+    def test_knows_its_rank_index(self):
+        card = Card(rank="2", suit="Clubs")
+        self.assertEqual    
+
     def test_has_suit(self):
         card = Card(rank="Queen", suit="Hearts")
         self.assertEqual(card.suit, "Hearts") 
@@ -61,4 +65,41 @@ class CardTest(unittest.TestCase):
         self.assertEqual(
             Card(rank="2", suit="Hearts"),
             Card(rank="2", suit="Hearts")
-        )                                                                                       
+        )
+
+    def test_card_can_sort_itself_with_another_one(self):
+        queen_of_spades = Card(rank="Queen", suit="Spades")
+        king_of_spades = Card(rank="King", suit="Spades")
+        evaluation = queen_of_spades < king_of_spades
+        self.assertEqual(
+            evaluation,
+            True
+        )    
+
+    def test_sorts_cards(self):
+        two_of_spades = Card(rank="2", suit="Spades")
+        five_of_diamonds = Card(rank="5", suit="Diamonds")
+        five_of_hearts = Card(rank="5", suit="Hearts")
+        eight_of_hearts = Card(rank="8", suit="Hearts")
+        ace_of_clubs = Card(rank="Ace", suit="Clubs")
+
+        unsorted_cards = [
+            five_of_diamonds,
+            two_of_spades,
+            five_of_hearts,
+            ace_of_clubs,
+            eight_of_hearts
+        ]
+
+        unsorted_cards.sort()
+
+        self.assertEqual(
+            unsorted_cards,
+            [
+                two_of_spades,
+                five_of_diamonds,
+                five_of_hearts,
+                eight_of_hearts,
+                ace_of_clubs
+            ]
+        )                                                                                         
