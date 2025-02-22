@@ -83,3 +83,28 @@ class HandTest(unittest.TestCase):
             hand.best_rank(),
             "Straight"
         )
+
+    def test_does_not_deem_two_consectuive_cards_as_staright(self):
+        cards = [
+            Card(rank='6', suit='Hearts'),
+            Card(rank='7', suit='Diamonds')
+        ]
+
+        hand = Hand(cards=cards)
+
+        self.assertEqual(
+            hand.best_rank(),
+            "High Card"
+        )
+
+    def test_figure_out_straight_is_flush(self):
+        cards = [
+            Card(rank=rank, suit="Hearts")
+            for rank in ["2","3","4","8","Ace"]
+        ]
+
+        hand = Hand(cards=cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "Flush"
+        ) 

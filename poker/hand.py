@@ -14,21 +14,43 @@ class Hand():
     @property
     def _rank_validation_from_best_to_worst(self):
         return (
-            # ("Straight",self._straight),
+            ("Flush", self._flush),
+            ("Straight",self._straight),
             ("Three of a Kind", self._three_of_a_kind),
             ("Two Pair", self._two_pair),
             ("Pair", self._pair),
             ("High Card", self._high_card)
-        )    
+        )
+    
        
     def best_rank(self):
         for rank in self._rank_validation_from_best_to_worst:
             name, validator_func = rank
             if validator_func():
                 return name
+
+    def _flush(self):
+        suits_that_occur_5_or_more_times = {
+            suit: suit_counts
+            for suit, suit_counts in self._card_suit_counts.items()
+            if suit_counts >= 5
+        }
+
+        return len(suits_that_occur_5_or_more_times) == 1      
             
     def _straight(self):
-        return True        
+       
+       if len(self.cards) <5:
+           return False
+       
+       rank_indexes = [card.rank_index for card in self.cards]
+       starting_rank_index = rank_indexes[0]
+       last_rank_index = rank_indexes[-1]
+       starting_consecutive_rank_index = list(
+           range(starting_rank_index, last_rank_index + 1)
+       )
+
+       return rank_indexes == starting_consecutive_rank_index        
     
     def _three_of_a_kind(self):
         ranks_with_three_of_a_kind = self._ranks_with_count(3)
@@ -51,6 +73,16 @@ class Hand():
             for rank, rank_count in self._card_rank_counts.items()
             if rank_count == count
         }
+
+    @property
+    def _card_suit_counts(self):
+        card_suit_counts = {}
+
+        for card in self.cards:
+            card_suit_counts.setdefault(card.suit, 0)
+            card_suit_counts[card.suit] += 1
+
+        return card_suit_counts
 
     @property
     def _card_rank_counts(self):

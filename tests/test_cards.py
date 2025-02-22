@@ -9,8 +9,8 @@ class CardTest(unittest.TestCase):
         self.assertEqual(card.rank, "Queen")
 
     def test_knows_its_rank_index(self):
-        card = Card(rank="2", suit="Clubs")
-        self.assertEqual    
+        card = Card(rank="Jack", suit="Hearts")
+        self.assertEqual(card.rank_index, 9)    
 
     def test_has_suit(self):
         card = Card(rank="Queen", suit="Hearts")
