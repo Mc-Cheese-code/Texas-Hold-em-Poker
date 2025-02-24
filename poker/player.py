@@ -1,6 +1,9 @@
 class Player():
 
-    def __init__(self, name):
+    def __init__(self, name, hand):
         self.name = name
-        self.cards = []
-        
+        self.hand = hand 
+
+    def best_hand(self):
+        return self.hand.best_rank()   
+

@@ -23,7 +23,9 @@ class Hand():
             ("Three of a Kind", self._three_of_a_kind),
             ("Two Pair", self._two_pair),
             ("Pair", self._pair),
-            ("High Card", self._high_card)
+            ("High Card", self._high_card),
+            ("No Cards", self._no_cards)
+
         )
     
        
@@ -35,6 +37,8 @@ class Hand():
             
     def _royal_flush(self):
         is_straight_flush = self._straight_flush()
+        if not is_straight_flush:
+            return False
         is_royal = self.cards[-1].rank == "Ace"
         return is_straight_flush and is_royal        
             
@@ -85,7 +89,10 @@ class Hand():
         return len(ranks_with_pairs) == 1
     
     def _high_card(self):
-        return True
+        return len(self.cards)>=2
+    
+    def _no_cards(self):
+        return len(self.cards) == 0
 
     def _ranks_with_count(self, count):
         return {
