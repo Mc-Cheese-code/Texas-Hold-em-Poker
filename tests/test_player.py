@@ -7,7 +7,7 @@ from poker.hand import Hand
 class PlayerTest(unittest.TestCase):
 
     def test_stores_name_and_cards(self):
-        hand = Hand(cards= [])
+        hand = Hand()
         player = Player(name = "Sid", hand=hand)
         self.assertEqual(player.name, "Sid")
         self.assertEqual(player.hand,hand)
