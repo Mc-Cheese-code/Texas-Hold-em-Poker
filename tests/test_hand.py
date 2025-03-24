@@ -5,9 +5,23 @@ from poker.hand import Hand
 
 class HandTest(unittest.TestCase):
 
+
     def test_starts_out_with_no_cards(self):
         hand = Hand()
         self.assertEqual(hand.cards, [])
+
+    def test_shows_all_its_card_in_technical_representation(self):
+        cards = [
+            Card(rank="Ace",suit="Diamonds"),
+            Card(rank="6",suit="Clubs")
+        ]
+
+        hand = Hand()
+        hand.add_cards(cards)
+        self.assertEqual(
+            repr(hand),
+            "6 of Clubs, Ace of Diamonds"
+        )   
 
     def test_recieves_and_stores(self):
         ace_of_spades = Card(rank="5",suit="Diamonds")
